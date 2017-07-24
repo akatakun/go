@@ -325,6 +325,7 @@ func isEmptyValue(v reflect.Value) bool {
 	return false
 }
 
+// 値をリフレクションする
 func (e *encodeState) reflectValue(v reflect.Value, opts encOpts) {
 	valueEncoder(v)(e, v, opts)
 }
