@@ -5,6 +5,7 @@
 // Package json implements encoding and decoding of JSON as defined in
 // RFC 4627. The mapping between JSON and Go values is described
 // in the documentation for the Marshal and Unmarshal functions.
+// json packageはRFC 4627仕様のJSONのエンコードとデコードを実装します
 //
 // See "JSON and Go" for an introduction to this package:
 // https://golang.org/doc/articles/json_and_go.html
@@ -156,6 +157,7 @@ import (
 // handle them. Passing cyclic structures to Marshal will result in
 // an infinite recursion.
 //
+// Go構造体をJson文字列へ変換する
 func Marshal(v interface{}) ([]byte, error) {
 	e := &encodeState{}
 	err := e.marshal(v, encOpts{escapeHTML: true})
@@ -166,6 +168,7 @@ func Marshal(v interface{}) ([]byte, error) {
 }
 
 // MarshalIndent is like Marshal but applies Indent to format the output.
+// インデントを適応したMarshal
 func MarshalIndent(v interface{}, prefix, indent string) ([]byte, error) {
 	b, err := Marshal(v)
 	if err != nil {
@@ -281,8 +284,11 @@ func newEncodeState() *encodeState {
 	return new(encodeState)
 }
 
+// 状態ラップメソッド: 俺の造語。xをyする関数を実装するとき、直接yするための関数をパッケージに定義するが、内部的にyするために必要な状態構造体を作成し、そのメソッドとしてyするための関数
+// Marshalの状態ラップメソッド
 func (e *encodeState) marshal(v interface{}, opts encOpts) (err error) {
 	defer func() {
+		// エラーハンドリングの基本になりそう(戻り値2つの型アサーション)
 		if r := recover(); r != nil {
 			if _, ok := r.(runtime.Error); ok {
 				panic(r)
