@@ -32,6 +32,8 @@ const (
 )
 
 const encodeStd = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
+// Base64URLエンコード文字，62番目と63番目がURL(Filename)セーフになっている
 const encodeURL = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
 
 // NewEncoding returns a new padded Encoding defined by the given alphabet,
